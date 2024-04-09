@@ -15,33 +15,30 @@
  ;; If there is more than one, they won't work right.
  )
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-theme 'tron-legacy t)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
 (setq column-number-mode t)
 (global-display-line-numbers-mode 1)
 
-(add-to-list 'load-path "~/emacs_plugins/neotree")
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-
-
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 (setq-default show-trailing-whitespace t)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
-
 (setq package-selected-packages '(lsp-mode yasnippet lsp-treemacs helm-lsp
-    projectile hydra flycheck company avy which-key helm-xref dap-mode))
+    projectile hydra flycheck company avy which-key helm-xref dap-mode tron-legacy-theme))
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
   (package-refresh-contents)
   (mapc #'package-install package-selected-packages))
+
+(use-package tron-legacy-theme
+  :config
+  (load-theme 'tron-legacy t))
 
 ;; sample `helm' configuration use https://github.com/emacs-helm/helm/ for details
 ;; (helm-mode)
@@ -79,3 +76,5 @@
  (setq tab-width 4)
  (setq indent-tabs-mode nil)  ; use spaces only if nil
  )
+
+
